@@ -7,5 +7,6 @@
     <string name="login_input_error">Error input data</string>
     <string name="email">Email</string>
     <string name="tv_text_login">Login</string>
+    <string name="tv_text_password">Password</string>
 
 </resources>

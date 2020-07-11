@@ -3,6 +3,7 @@ package com.maxdexter.authapp;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class AuthActivity extends AppCompatActivity {
+
     private EditText mLogin;
     private EditText mPassword;
     private Button mEnter;
@@ -38,7 +40,9 @@ public class AuthActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(isEmailValid() && isPasswordValid()){
-                    //переходв приложение
+                    Intent intent = new Intent(AuthActivity.this, ProfileActivity.class);
+                    intent.putExtra(ProfileActivity.USER_KEY,new User(mLogin.getText().toString(),mPassword.getText().toString()));
+                    startActivity(intent);
                 }else{
                     showMessage(R.string.login_input_error);
                 }
