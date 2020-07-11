@@ -3,6 +3,8 @@ package com.maxdexter.authapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +35,9 @@ public class AuthActivity extends AppCompatActivity {
         mEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(isEmailValid() && isPasswordValid()){
+                    //переходв приложение
+                }
             }
         });
 
@@ -44,4 +48,13 @@ public class AuthActivity extends AppCompatActivity {
             }
         });
     }
+
+    private Boolean isEmailValid(){
+        return !TextUtils.isEmpty(mLogin.getText()) && Patterns.EMAIL_ADDRESS.matcher(mLogin.getText()).matches();
+    }
+    private Boolean isPasswordValid(){
+        return !TextUtils.isEmpty(mPassword.getText());
+    }
+
+
 }
