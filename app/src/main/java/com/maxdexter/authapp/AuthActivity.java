@@ -1,5 +1,6 @@
 package com.maxdexter.authapp;
 
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AuthActivity extends AppCompatActivity {
     private EditText mLogin;
@@ -37,6 +39,8 @@ public class AuthActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(isEmailValid() && isPasswordValid()){
                     //переходв приложение
+                }else{
+                    showMessage(R.string.login_input_error);
                 }
             }
         });
@@ -56,5 +60,7 @@ public class AuthActivity extends AppCompatActivity {
         return !TextUtils.isEmpty(mPassword.getText());
     }
 
-
+    private void showMessage(@StringRes int str){
+        Toast.makeText(this, str, Toast.LENGTH_LONG).show();
+    }
 }

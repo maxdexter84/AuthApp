@@ -4,4 +4,8 @@
     <string name="et_hint_pass">Password</string>
     <string name="btn_text_enter">Enter</string>
     <string name="btn_text_register">Registration</string>
+    <string name="login_input_error">Error input data</string>
+    <string name="email">Email</string>
+    <string name="tv_text_login">Login</string>
+
 </resources>
