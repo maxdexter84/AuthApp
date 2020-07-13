@@ -15,5 +15,6 @@
     <string name="password_enter_again">Enter password again</string>
     <string name="register">Register</string>
     <string name="menu_item_logout">Logout</string>
+    <string name="data_input_error">Data input error</string>
 
 </resources>

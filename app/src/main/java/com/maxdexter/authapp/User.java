@@ -5,10 +5,15 @@ import java.io.Serializable;
 public class User implements Serializable {
     private String mLogin;
     private String mPassword;
+    private boolean isLogged;
 
     public User(String login, String password) {
         mLogin = login;
         mPassword = password;
+    }
+
+    public void setHasSuccessLogin(boolean isLogged){
+        this.isLogged = isLogged;
     }
 
     public String getLogin() {

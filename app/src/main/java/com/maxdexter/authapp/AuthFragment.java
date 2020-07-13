@@ -60,21 +60,20 @@ public class AuthFragment extends Fragment {
         mEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean isLoginSuccess = false;
-                for(User user:mSharedPreferencesHelper.getUsers()){
-                    if( user.getLogin().equalsIgnoreCase(mLogin.getText().toString()) && user.getPassword().equals(mPassword.getText().toString())){
-                        isLoginSuccess = true;
+
                         if(isEmailValid() && isPasswordValid()){
+                            User user = mSharedPreferencesHelper.login(mLogin.getText().toString(),mPassword.getText().toString());
+                            if(user != null){
                             Intent intent = new Intent(getContext(), ProfileActivity.class);
-                            intent.putExtra(ProfileActivity.USER_KEY,new User(mLogin.getText().toString(),mPassword.getText().toString()));
+                            intent.putExtra(ProfileActivity.USER_KEY, user);
                             startActivity(intent);
+                            getActivity().finish();
                         }else{
                             showMessage(R.string.login_input_error);
                         }
-                        break;
-                    }
-                }
-                if(!isLoginSuccess)showMessage(R.string.login_input_error);
+                    }else showMessage(R.string.data_input_error);
+
+
 
 
             }

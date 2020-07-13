@@ -43,4 +43,16 @@ public class SharedPreferencesHelper {
         }
         return loginUsers;
     }
+
+    public User login(String login, String password){
+        List<User> users = getUsers();
+        for (User u: users) {
+            if(login.equalsIgnoreCase(u.getLogin()) && password.equals(u.getPassword())){
+                u.setHasSuccessLogin(true);
+                mSharedPreferences.edit().putString(USERS_KEY,mGson.toJson(users,USERS_TYPE)).apply();
+                return u;
+            }
+        }
+        return null;
+    }
 }
