@@ -1,5 +1,6 @@
 package com.maxdexter.authapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.StringRes;
@@ -14,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link RegistrationFragment#newInstance} factory method to
@@ -24,7 +27,7 @@ public class RegistrationFragment extends Fragment {
     private EditText mPassword;
     private EditText mPasswordAgain;
     private Button mRegistration;
-
+    SharedPreferencesHelper mSharedPreferences;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,20 +42,12 @@ public class RegistrationFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RegistrationFragment.
-     */
+
     // TODO: Rename and change types and number of parameters
-    public static RegistrationFragment newInstance(String param1, String param2) {
+    public static RegistrationFragment newInstance() {
         RegistrationFragment fragment = new RegistrationFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -71,11 +66,19 @@ public class RegistrationFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fr_registration, container, false);
         initUI(view);
+        mSharedPreferences = new SharedPreferencesHelper(Objects.requireNonNull(getContext()));
         mRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isInputValid()){
-
+                    User user = new User(mLogin.getText().toString(),mPassword.getText().toString());
+                   boolean isAdded = mSharedPreferences.addUser(user);
+                   if(isAdded){
+                       showMessage(R.string.user_added_success);
+                       getFragmentManager().popBackStack();
+                   }else{
+                       showMessage(R.string.login_input_error);
+                   }
                 }
             }
         });

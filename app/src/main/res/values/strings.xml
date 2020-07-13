@@ -5,6 +5,7 @@
     <string name="btn_text_enter">Enter</string>
     <string name="btn_text_register">Registration</string>
     <string name="login_input_error">Error input data</string>
+    <string name="user_added_success">User register success</string>
     <string name="email">Email</string>
     <string name="tv_text_login">Login</string>
     <string name="tv_text_password">Password</string>

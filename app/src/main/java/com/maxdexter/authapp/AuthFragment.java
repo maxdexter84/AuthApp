@@ -22,7 +22,7 @@ public class AuthFragment extends Fragment {
     private EditText mPassword;
     private Button mEnter;
     private Button mRegister;
-
+    private SharedPreferencesHelper mSharedPreferencesHelper;
 
     @Nullable
     @Override
@@ -30,6 +30,7 @@ public class AuthFragment extends Fragment {
         View view = inflater.inflate(R.layout.fr_auth,container,false);
         initUI(view);
         btnListener();
+        mSharedPreferencesHelper = new SharedPreferencesHelper(getContext());
         return view;
     }
 
@@ -44,20 +45,30 @@ public class AuthFragment extends Fragment {
         mEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isEmailValid() && isPasswordValid()){
-                    Intent intent = new Intent(getContext(), ProfileActivity.class);
-                    intent.putExtra(ProfileActivity.USER_KEY,new User(mLogin.getText().toString(),mPassword.getText().toString()));
-                    startActivity(intent);
-                }else{
-                    showMessage(R.string.login_input_error);
+                boolean isLoginSuccess = false;
+                for(User user:mSharedPreferencesHelper.getUsers()){
+                    if( user.getLogin().equalsIgnoreCase(mLogin.getText().toString()) && user.getPassword().equals(mPassword.getText().toString())){
+                        isLoginSuccess = true;
+                        if(isEmailValid() && isPasswordValid()){
+                            Intent intent = new Intent(getContext(), ProfileActivity.class);
+                            intent.putExtra(ProfileActivity.USER_KEY,new User(mLogin.getText().toString(),mPassword.getText().toString()));
+                            startActivity(intent);
+                        }else{
+                            showMessage(R.string.login_input_error);
+                        }
+                        break;
+                    }
                 }
+                if(!isLoginSuccess)showMessage(R.string.login_input_error);
+
+
             }
         });
 
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,RegistrationFragment.newInstance()).addToBackStack(RegistrationFragment.class.getName()).commit();
             }
         });
     }
