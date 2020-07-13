@@ -14,5 +14,6 @@
     <string name="password_enter">Enter password</string>
     <string name="password_enter_again">Enter password again</string>
     <string name="register">Register</string>
+    <string name="menu_item_logout">Logout</string>
 
 </resources>

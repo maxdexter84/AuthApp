@@ -12,17 +12,20 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class AuthFragment extends Fragment {
 
-    private EditText mLogin;
+    private AutoCompleteTextView mLogin;
     private EditText mPassword;
     private Button mEnter;
     private Button mRegister;
     private SharedPreferencesHelper mSharedPreferencesHelper;
+    private ArrayAdapter<String> mLoginedUsers;
 
     @Nullable
     @Override
@@ -31,8 +34,20 @@ public class AuthFragment extends Fragment {
         initUI(view);
         btnListener();
         mSharedPreferencesHelper = new SharedPreferencesHelper(getContext());
+        mLoginedUsers = new ArrayAdapter<String>(getContext(),android.R.layout.simple_dropdown_item_1line,mSharedPreferencesHelper.getSuccessLogin());
+        mLogin.setAdapter(mLoginedUsers);
+        mLogin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    mLogin.showDropDown();
+                }
+            }
+        });
         return view;
     }
+
+
 
     private void initUI(View view) {
         mLogin = view.findViewById(R.id.et_login);

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".AuthActivity">
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/et_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

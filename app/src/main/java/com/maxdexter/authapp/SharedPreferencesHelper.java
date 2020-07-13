@@ -35,4 +35,12 @@ public class SharedPreferencesHelper {
         mSharedPreferences.edit().putString(USERS_KEY,mGson.toJson(users,USERS_TYPE)).apply();
         return true;
     }
+
+    public List<String> getSuccessLogin(){
+        List<String> loginUsers = new ArrayList<>();
+        for(User user: getUsers()){
+            loginUsers.add(user.getLogin());
+        }
+        return loginUsers;
+    }
 }
